@@ -1,0 +1,10 @@
+ReadMe
+
+Problem Statement - Loading a grid of a million pixels.
+
+As a User
+I want to load into a canvas area of a million pixels
+So that it can load in 10 seconds
+
+1. The pixel must be selectable
+2. Have its own id associated to it
