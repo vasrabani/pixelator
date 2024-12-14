@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <title>Charity Fundraiser</title>
+</head>
+<body>
+    <header>
+      <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="{% url 'home' %}">Logo</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-sm-9">
+                <h1 class="mb-3">Charity Fundraiser</h1>
+            </div>
+            <div class="col-sm-3">
+                <div class="zoom-select pull-right">
+                    <select id="zoom-level" class="form-control form-select">
+                      <option selected>Select Pixel Size</option>
+                      <option value="10">10x10</option>
+                      <option value="20">20x20</option>
+                      <option value="50">50x50</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        <div class="charity-target-bar">
+          <div class="progress" style="width: 70%;"><strong>$7,000</strong></div>
+          <div class="target"><strong>Target: $10,000</strong></div>
+        </div>
+        <div class="pixels-holder">
+            <div id="progressLabel" style="text-align: center; font-weight: bold; margin-bottom: 10px; display: none;">
+                Loading Pixels: <span id="progressPercentage">0%</span>
+            </div>
+            <div id="canvasContainer" style="width: 100%; height: 500px; overflow: auto; position: relative; border: 1px solid #ccc;">
+                <svg id="pixelCanvas"></svg>
+            </div>
+            <button id="recolorPixels" class="btn btn-secondary mt-3">Recolor Pixels</button>
+        </div>
+    </div>
+    <div class="modal fade" id="pixelModal" tabindex="-1" aria-labelledby="pixelModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="pixelModalLabel">Pixel Ownership</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-9 col-md-8 col-sm-12">
+                            <iframe loading="lazy" width="100%" height="500px" src="https://www.youtube.com/embed/F0PcSTB6r4c" title="How To Start A Software Development Agency in 2025" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-sm-12">
+                            <div class="sidebar-inner p-3">
+                                <strong id="pixel-id-clicked"></strong>
+                                <p class="mt-3">Do you like Coke?</p>
+                                <form id="pixelForm">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="answer" value="Yes" id="optionYes">
+                                        <label class="form-check-label" for="optionYes">A. Yes</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="answer" value="No" id="optionNo">
+                                        <label class="form-check-label" for="optionNo">B. No</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="answer" value="Don’t know" id="optionDontKnow">
+                                        <label class="form-check-label" for="optionDontKnow">C. Don’t know</label>
+                                    </div>
+                                    <button type="button" id="submitAnswer" class="btn btn-primary mt-3">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/custom.js"></script>
+</body>
+</html>

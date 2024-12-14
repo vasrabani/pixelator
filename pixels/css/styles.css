@@ -1,0 +1,197 @@
+.navbar-dark{
+    background: #4b886a !important;
+}
+.pixels-holder{
+    width: 100%;
+    min-height: 80vh; /* Adjust height as needed */
+    overflow: auto; /* Enable scrolling */
+    margin: 20px auto;
+}
+/* Scrollbar Styling */
+.pixels-holder::-webkit-scrollbar {
+  width: 10px; /* Width of the scrollbar */
+}
+
+.pixels-holder::-webkit-scrollbar-track {
+  background: #e0e0e0; /* Track background color */
+  border-radius: 5px; /* Rounded edges for track */
+}
+
+.pixels-holder::-webkit-scrollbar-thumb {
+  background: #4caf50; /* Scrollbar color */
+  border-radius: 5px; /* Rounded edges for thumb */
+  border: 2px solid #e0e0e0; /* Add padding effect */
+}
+
+.pixels-holder::-webkit-scrollbar-thumb:hover {
+  background: #45a049; /* Darker green on hover */
+}
+
+/* Add support for Firefox */
+.pixels-holder {
+  scrollbar-width: thin; /* Makes the scrollbar thinner */
+  scrollbar-color: #4b886a #e0e0e0; /* Thumb color and track color */
+}
+#pixelCanvas {
+    width: 100%;
+    height: 80vh; /* Adjust height as needed */
+    overflow: auto; /* Enable scrolling */
+    margin: 20px auto;
+    }
+#zoom-level{
+    border-radius: 0;
+    border:2px solid #767676;
+    font-weight: 600;
+}
+.modal-dialog{
+    max-width: 70vw;
+}
+.sidebar-inner{
+    height: 100%;
+    background: #d0dfd7;
+}
+.sidebar-inner .btn-primary{
+    background: #4b886a !important;
+    border:none;
+}
+.tooltip {
+  background-color: #333; /* Change tooltip background */
+  color: #fff; /* Text color */
+  font-size: 20px; /* Font size */
+  font-weight: 400;
+  border-radius: 5px; /* Rounded corners */
+}
+
+.tooltip-arrow {
+  border-top-color: #333 !important; /* Customize the arrow */
+}
+
+.tooltip-inner {
+  background-color: #4b886a; /* Inner background color */
+  color: white; /* Inner text color */
+  font-weight: bold; /* Bold text */
+}
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #4b886a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    overflow: hidden;
+}
+
+.modern-preloader {
+    display: flex;
+    gap: 10px;
+}
+
+.preloader-shape {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #ffffff;
+    animation: bounce 1.2s infinite ease-in-out;
+}
+
+.preloader-shape:nth-child(1) {
+    animation-delay: -0.4s;
+}
+
+.preloader-shape:nth-child(2) {
+    animation-delay: -0.2s;
+}
+
+.preloader-shape:nth-child(3) {
+    animation-delay: 0s;
+}
+
+@keyframes bounce {
+    0%, 80%, 100% {
+        transform: scale(0);
+    }
+    40% {
+        transform: scale(1);
+    }
+}
+/*---Key frame animations--*/
+@keyframes Scale {
+    0% {
+      transform:scale(1);
+    }
+    50% {
+      transform: scale(1.0019);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+.fund-pixel {
+   animation: Scale 2s infinite;
+}
+
+.charity-target-bar {
+    width: 100%;
+    max-width: 100%;
+    background: #f5f5f5;
+    overflow: hidden;
+    position: relative;
+    margin: 20px auto;
+    font-family: Arial, sans-serif;
+    border:2px solid #767676;
+}
+.charity-target-bar strong{
+    font-size: 20px;
+}
+.progress {
+    background: linear-gradient(to right, #59836e, #4b886a);
+    color: #fff;
+    font-weight: bold;
+    text-align: right;
+    height: 50px;
+    padding:0 10px 0 10px;
+    line-height: 50px;
+    border-radius: 0;
+    position: relative;
+    white-space: nowrap;
+    overflow: hidden;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.target {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    color: #555;
+    font-weight: bold;
+}
+
+#canvasContainer {
+  width: 100%;
+  height: 600px; /* Adjust as needed */
+  overflow: scroll;
+  position: relative;
+}
+
+#pixelCanvas {
+  position: absolute;
+  width: 10000px; /* Estimated total width of canvas */
+  height: 10000px; /* Estimated total height of canvas */
+}
+
+#progressLabel {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 10px;
+  display: block !important; /* Force display for debugging */
+  background: rgba(255, 255, 255, 0.8);
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
