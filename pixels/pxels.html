@@ -11,7 +11,10 @@
     <header>
         <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="{% url 'home' %}">Logo</a>
+                <!-- Updated logo with image -->
+                <a class="navbar-brand" href="{% url 'home' %}">
+                    <img src="img/pixel.jpg" alt="Logo" style="height: 40px; width: auto; border: 2px solid #fff; border-radius: 50%;">
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" 
                         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -26,41 +29,154 @@
             </div>
         </nav>
     </header>
+    
     <div class="container mt-4">
-        <div class="row">
-            <div class="col-sm-9">
-                <h1 class="mb-3">Charity Fundraiser</h1>
+        <!-- Header Row -->
+
+        
+        <!-- Combined Charity Target Bar and Zoom Select Row -->
+        <div class="row charity-target-bar mb-4 align-items-center">
+            <div class="col-sm-8">
+                <div class="progress" style="height: 30px;">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 70%;" aria-valuenow="7000" aria-valuemin="0" aria-valuemax="10000">
+                        <strong>$7,000</strong>
+                    </div>
+                </div>
             </div>
-            <div class="col-sm-3">
-                <div class="zoom-select pull-right">
-                    <select id="zoom-level" class="form-control form-select">
-                        <option selected>Select Pixel Size</option>
+            <div class="col-sm-2 text-center">
+                <strong>Target: $10,000</strong>
+            </div>
+            <div class="col-sm-2 text-end">
+                <div class="zoom-select">
+                    <label for="zoom-level-main" class="visually-hidden">Zoom</label>
+                    <select id="zoom-level" class="form-control form-select" aria-label="Select Canvas Size">
+                        <option selected>Canvas Size</option>
+                        <option value="1">1x1</option>
+                        <option value="5">5x5</option>
                         <option value="10">10x10</option>
                         <option value="20">20x20</option>
-                        <option value="50">50x50</option>
                     </select>
                 </div>
             </div>
         </div>
-        
-        <div class="charity-target-bar">
-            <div class="progress" style="width: 70%;"><strong>$7,000</strong></div>
-            <div class="target"><strong>Target: $10,000</strong></div>
-        </div>
+        <!-- End of Combined Row -->
+
+        <!-- Pixels Holder Section -->
         <div class="pixels-holder">
-            <div id="progressLabel" style="text-align: center; font-weight: bold; margin-bottom: 10px; display: none;">
+            <div id="progressLabel" class="text-center fw-bold mb-3" style="display: none;">
                 Loading Pixels: <span id="progressPercentage">0%</span>
             </div>
-            <div id="canvasContainer" style="width: 100%; height: 500px; overflow: auto; position: relative; border: 1px solid #ccc;">
+            <div id="canvasContainer" class="mb-3" style="width: 100%; height: 500px; overflow: auto; position: relative; border: 1px solid #ccc;">
                 <!-- Canvas for rendering pixels -->
                 <canvas id="pixelCanvas"></canvas>
             </div>
-            <button id="recolorPixels" class="btn btn-secondary mt-3">Recolor Pixels</button>
-            <!-- Add your new button here -->
-            <button id="showChosenPixels" class="btn btn-primary mt-3">Show Chosen Pixels</button>
+            <div class="d-flex flex-wrap gap-2 mb-4">
+                <button id="recolorPixels" class="btn btn-secondary">Recolor Pixels</button>
+                <button id="showChosenPixels" class="btn btn-primary">Show Chosen Pixels</button>
+            </div>
+
+            <!-- New Information Section -->
+            <div class="card mt-4">
+                <div class="card-header bg-primary text-white">
+                    About the Charity Fundraiser
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Support Our Cause</h5>
+                    <p class="card-text">
+                        Welcome to our Charity Fundraiser! Our mission is to raise funds to support [Your Charity's Purpose]. By interacting with the pixel grid, you contribute directly to our goal of reaching $10,000.
+                    </p>
+                    <p class="card-text">
+                        <strong>How It Works:</strong>
+                        <ul>
+                            <li>Select the pixel size to customize your viewing experience.</li>
+                            <li>Recolor the pixels to see the full canvas.</li>
+                            <li>Click on a pixel to make a donation and answer a simple question.</li>
+                            <li>View your contributions by clicking "Show Chosen Pixels".</li>
+                        </ul>
+                    </p>
+                    <p class="card-text">
+                        Your participation helps us make a significant impact. Thank you for your support!
+                    </p>
+                    <a href="#" class="btn btn-primary">Learn More</a>
+                </div>
+            </div>
+            <!-- End of Information Section -->
+            <!-- Contact Section -->
+            <section id="contact" class="py-5 bg-light">
+                <div class="container">
+                    <div class="row mb-4">
+                        <div class="col text-center">
+                            <h2 class="display-5">Contact Us</h2>
+                            <p class="text-muted">We’d love to hear from you! Get in touch with us today.</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!-- Contact Details -->
+                        <div class="col-lg-6 mb-4">
+                            <h4>Get in Touch</h4>
+                            <p class="text-muted">
+                                Reach out to us for any questions, partnership opportunities, or donations.
+                            </p>
+                            <ul class="list-unstyled">
+                                <li class="mb-2">
+                                    <strong>Address:</strong> 123 Charity Street, City Name, Country
+                                </li>
+                                <li class="mb-2">
+                                    <strong>Email:</strong>
+                                    <a href="mailto:info@charityexample.com">info@charityexample.com</a>
+                                </li>
+                                <li class="mb-2">
+                                    <strong>Phone:</strong>
+                                    <a href="tel:+1234567890">+1 (234) 567-890</a>
+                                </li>
+                                <li>
+                                    <strong>Working Hours:</strong> Mon - Fri, 9:00 AM to 5:00 PM
+                                </li>
+                            </ul>
+                            <!-- Social Media Links -->
+                            <div class="mt-4">
+                                <a href="#" class="me-3 text-dark">
+                                    <i class="bi bi-facebook" style="font-size: 1.5rem;"></i>
+                                </a>
+                                <a href="#" class="me-3 text-dark">
+                                    <i class="bi bi-twitter" style="font-size: 1.5rem;"></i>
+                                </a>
+                                <a href="#" class="me-3 text-dark">
+                                    <i class="bi bi-instagram" style="font-size: 1.5rem;"></i>
+                                </a>
+                                <a href="#" class="text-dark">
+                                    <i class="bi bi-linkedin" style="font-size: 1.5rem;"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Contact Form -->
+                        <div class="col-lg-6">
+                            <h4>Send Us a Message</h4>
+                            <form id="contactForm">
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Your Name</label>
+                                    <input type="text" class="form-control" id="name" placeholder="Enter your name" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Your Email</label>
+                                    <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="message" class="form-label">Your Message</label>
+                                    <textarea class="form-control" id="message" rows="5" placeholder="Enter your message" required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Send Message</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
         </div>
     </div>
     
+    <!-- Modal -->
     <div class="modal fade" id="pixelModal" tabindex="-1" aria-labelledby="pixelModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -70,8 +186,8 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-lg-9 col-md-8 col-sm-12">
-                            <iframe loading="lazy" width="100%" height="500px" 
+                        <div class="col-lg-9 col-md-8 col-sm-12 mb-3">
+                            <iframe loading="lazy" width="100%" height="300px" 
                                     src="https://www.youtube.com/embed/F0PcSTB6r4c"
                                     title="How To Start A Software Development Agency in 2025"
                                     frameborder="0" 

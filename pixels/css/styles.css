@@ -137,11 +137,20 @@ font-weight: bold; /* Bold text */
   position: relative;
   margin: 20px auto;
   font-family: Arial, sans-serif;
-  border: 2px solid #767676;
+  border:2px solid #767676;
 }
 
-.charity-target-bar strong {
+.charity-target-bar strong{
   font-size: 20px;
+}
+
+.target {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  color: #555;
+  font-weight: bold;
 }
 
 .progress {
@@ -150,9 +159,15 @@ font-weight: bold; /* Bold text */
   font-weight: bold;
   text-align: right;
   height: 50px;
-  padding: 0 10px;
-  line-height: 5
+  padding:0 10px 0 10px;
+  line-height: 50px;
+  border-radius: 0;
+  position: relative;
+  white-space: nowrap;
+  overflow: hidden;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
+
 
 #pixelTooltip {
   position: absolute;
@@ -164,4 +179,40 @@ font-weight: bold; /* Bold text */
   pointer-events: none;
   display: none;
   z-index: 9999;
+}
+
+/* Contact Section Custom Styles */
+#contact {
+  background-color: #f8f9fa;
+}
+
+#contact h2 {
+  font-weight: 700;
+}
+
+#contact ul {
+  padding-left: 0;
+}
+
+#contact ul li {
+  list-style: none;
+}
+
+#contact a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+#contact a:hover {
+  text-decoration: underline;
+}
+
+#contactForm button {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+#contactForm button:hover {
+  background-color: #0056b3;
+  border-color: #004085;
 }
