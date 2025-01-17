@@ -16,13 +16,54 @@ a {
   text-decoration: none;
 }
 
+
+/* ********************************************** */
+header {
+  position: relative;
+  overflow: hidden;
+  height: 100px; /* Adjust height based on design */
+  z-index: 1; /* Ensure it's above the pixel background */
+}
+
+.header-pixel-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* Behind header content */
+  overflow: hidden;
+}
+
+.header-pixel {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: rgba(51, 64, 58, 0.8);
+  transform-origin: center;
+  animation: pixel-float 5s infinite ease-in-out;
+}
+
+@keyframes pixel-float {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(0, -10px, 5px) scale(1.1);
+  }
+}
+
+/* ********************************************** */
+
+
+
 .navbar-dark {
   background: var(--primary-color) !important;
 }
 
+
 .pixels-holder {
   width: 100%;
-  min-height: 80vh;
   margin: 0;
   scrollbar-width: thin;
   scrollbar-color: var(--primary-color) var(--light-gray);
@@ -48,13 +89,55 @@ a {
   background: #45a049;
 }
 
-/* Adjusted for canvas */
-#pixelCanvas {
-  display: block;
-  margin: 0 auto 20px auto;
-  cursor: pointer;
+/* Container with advanced border & background */
+#canvasContainer {
+  position: relative;  
+  /* Removed padding to avoid hover offset. 
+     If you want spacing around the container, 
+     use margin or external wrappers instead. */
+  margin: 20px 0;
+
+  /* Keep your fancy background & border styling: */
+  background: linear-gradient(135deg, #3a3a3a 0%, #1f1f1f 100%);
+  border: 8px solid #666;
+  border-radius: 15px;
+  box-shadow:
+    0 0 20px rgba(0, 0, 0, 0.6), 
+    inset 0 0 10px rgba(255, 255, 255, 0.1),
+    inset 0 0 3px rgba(255, 255, 255, 0.3);
+
+  /* Overflow hidden so the hoverCanvas won't spill outside. 
+     Also we have overflow-y for scroll if the canvas is tall. */
+  overflow: hidden;
+  overflow-y: scroll;
+  height: 70vh;
 }
 
+/* Main Canvas
+   - We let the JS set canvas.width & canvas.height 
+   - Removed "width: 100%" to avoid stretching */
+#pixelCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  cursor: pointer;
+  /* No 'width: 100%;' => prevents scaling mismatch */
+}
+
+/* Hover Canvas 
+   - Absolutely positioned on top of the main canvas 
+   - Same top/left => perfect alignment. */
+#hoverCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  cursor: default; /* or omit */
+  display: block;
+}
+
+/* Zoom level styling */
 #zoom-level {
   border-radius: 0;
   border: none;
@@ -62,20 +145,29 @@ a {
   background-color: transparent;
 }
 
+.modal {
+  z-index: 1055;
+}
+.modal-backdrop {
+  z-index: 1050;
+}
+
+/* Modal tweak */
 .modal-dialog {
   max-width: 70vw;
 }
 
+/* Sidebar color */
 .sidebar-inner {
   height: 100%;
   background: #d0dfd7;
 }
-
 .sidebar-inner .btn-primary {
   background: var(--primary-color) !important;
   border: none;
 }
 
+/* Bootstrap tooltip modifications */
 .tooltip {
   background-color: #333;
   color: #fff;
@@ -94,6 +186,7 @@ a {
   font-weight: bold;
 }
 
+/* Preloader styling (optional) */
 #preloader {
   position: fixed;
   top: 0;
@@ -124,11 +217,9 @@ a {
 .preloader-shape:nth-child(1) {
   animation-delay: -0.4s;
 }
-
 .preloader-shape:nth-child(2) {
   animation-delay: -0.2s;
 }
-
 .preloader-shape:nth-child(3) {
   animation-delay: 0s;
 }
@@ -142,6 +233,7 @@ a {
   }
 }
 
+/* Charity progress bar styling */
 .charity-target-bar {
   width: 100%;
   max-width: 100%;
@@ -162,7 +254,7 @@ a {
   font-weight: bold;
   text-align: right;
   height: 50px;
-  padding: 0 10px;
+  padding: 0;
   line-height: 50px;
   border-radius: 0;
   position: relative;
@@ -171,6 +263,7 @@ a {
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
+/* Tooltip for hover info */
 #pixelTooltip {
   position: absolute;
   background: rgba(0, 0, 0, 0.8);
@@ -183,7 +276,6 @@ a {
   z-index: 9999;
   transition: opacity 0.3s, transform 0.3s;
 }
-
 #pixelTooltip.show {
   opacity: 1;
   transform: translateY(0);
@@ -193,82 +285,91 @@ a {
 #contact {
   background: #ffffff;
 }
-
 #contact h2 {
   font-weight: 700;
 }
-
 #contact ul {
   padding-left: 0;
 }
-
 #contact ul li {
   list-style: none;
 }
-
 #contact a {
   color: #007bff;
   text-decoration: none;
 }
-
 #contact a:hover {
   text-decoration: underline;
 }
 
+/* Buttons */
 .bg-primary {
   background: var(--primary-color) !important;
 }
-
 .btn-primary {
   background: var(--primary-color);
   border: 1px solid var(--primary-color);
   transition: transform 0.2s, opacity 0.2s;
 }
-
 .btn-primary:hover {
   opacity: var(--hover-opacity);
   transform: scale(1.02);
 }
 
+/* Footer */
 .site-footer {
   background: var(--dark-bg);
 }
-
 .rights-section {
   background: var(--rights-bg);
 }
 
-/* Media Queries */
+/* Responsive / Media Queries */
+@media (max-width: 1199px) {
+  .charity-target-bar strong {
+    font-size: 16px;
+  }
+}
+
 @media (min-width: 768px) and (max-width: 991px) {
   .charity-target-bar .col-sm-8 {
     max-width: 75%;
     flex: 0 0 75%;
     width: 100% !important;
   }
-
   .charity-target-bar .col-sm-2.text-center {
     max-width: 25%;
     flex: 0 0 25%;
     width: 100% !important;
   }
-
   .charity-target-bar .col-sm-2.text-end {
     max-width: 100%;
     flex: 0 0 100%;
     width: 100% !important;
   }
-
   .charity-target-bar strong {
     font-size: 14px;
   }
-
   #zoom-level {
     border: 2px solid #767676;
     margin: 10px 0;
   }
-
+  #canvasContainer {
+    height: 400px;
+  }
   .modal-dialog {
     max-width: 90vw;
+  }
+  .toggle-buttons .col-sm-3,
+  .toggle-buttons .col-sm-3,
+  .toggle-buttons .col-sm-3 .btn-secondary,
+  .toggle-buttons .col-sm-3 .btn-primary {
+    width: 100%;
+    margin: 5px 0;
+  }
+  .toggle-buttons .col-sm-3 .btn-secondary,
+  .toggle-buttons .col-sm-3 .btn-primary {
+    padding: 12px;
   }
 }
 
@@ -278,26 +379,40 @@ a {
     flex: 0 0 75%;
     width: 100% !important;
   }
-
+  .info-section .col-sm-2.charity-target {
+    max-width: 25%;
+    flex: 0 0 25%;
+    width: 100% !important;
+  }
   .info-section .col-sm-6,
-  .charity-target-bar .col-sm-2.text-center,
   .charity-target-bar .col-sm-2.text-end {
     max-width: 100%;
     flex: 0 0 100%;
     width: 100% !important;
   }
-
   .charity-target-bar strong {
-    font-size: 14px;
+    font-size: 13px;
   }
-
   #zoom-level {
     border: 2px solid #767676;
     margin: 10px 0;
   }
-
   .modal-dialog {
     max-width: 100vw;
+  }
+  #canvasContainer {
+    height: 380px !important;
+  }
+  .toggle-buttons .col-sm-3,
+  .toggle-buttons .col-sm-3,
+  .toggle-buttons .col-sm-3 .btn-secondary,
+  .toggle-buttons .col-sm-3 .btn-primary {
+    width: 100%;
+    margin: 3px 0;
+  }
+  .toggle-buttons .col-sm-3 .btn-secondary,
+  .toggle-buttons .col-sm-3 .btn-primary {
+    padding: 12px;
   }
 }
 
@@ -305,14 +420,25 @@ a {
   .toggle-buttons .col-sm-6 {
     text-align: center;
   }
-
   .toggle-buttons .col-sm-6 #showChosenPixels {
     float: none !important;
   }
-
-  .toggle-buttons .col-sm-6 .btn-secondary,
-  .toggle-buttons .col-sm-6 .btn-primary {
+  #canvasContainer {
+    height: 380px !important;
+  }
+  .toggle-buttons .col-sm-3,
+  .toggle-buttons .col-sm-3,
+  .toggle-buttons .col-sm-3 .btn-secondary,
+  .toggle-buttons .col-sm-3 .btn-primary {
     width: 100%;
-    margin: 5px 0;
+    margin: 3px 0;
+  }
+  .toggle-buttons .col-sm-3 .btn-secondary,
+  .toggle-buttons .col-sm-3 .btn-primary {
+    padding: 12px;
+  }
+  .charity-target-bar strong {
+    font-size: 12px;
+    line-height: 16px;
   }
 }
