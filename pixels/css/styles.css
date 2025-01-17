@@ -16,12 +16,18 @@ a {
   text-decoration: none;
 }
 
-
-/* ********************************************** */
+/* ---------------------------------------------
+   HEADER + PIXEL BACKGROUND
+   --------------------------------------------- */
 header {
   position: relative;
-  overflow: hidden;
-  height: 100px; /* Adjust height based on design */
+  /* Remove forced height or reduce it */
+  /* height: 1000px; <-- removed */
+  /* overflow: hidden; <-- removed */
+
+  /* Option 1: Let the content define height naturally */
+  /* or Option 2: Use min-height so it doesn't collapse too short */
+  min-height: 100px;
   z-index: 1; /* Ensure it's above the pixel background */
 }
 
@@ -32,7 +38,7 @@ header {
   width: 100%;
   height: 100%;
   z-index: -1; /* Behind header content */
-  overflow: hidden;
+  overflow: hidden; 
 }
 
 .header-pixel {
@@ -53,15 +59,16 @@ header {
   }
 }
 
-/* ********************************************** */
-
-
-
+/* ---------------------------------------------
+   NAVBAR
+   --------------------------------------------- */
 .navbar-dark {
   background: var(--primary-color) !important;
 }
 
-
+/* ---------------------------------------------
+   PIXELS HOLDER SCROLLBAR
+   --------------------------------------------- */
 .pixels-holder {
   width: 100%;
   margin: 0;
@@ -69,75 +76,60 @@ header {
   scrollbar-color: var(--primary-color) var(--light-gray);
 }
 
-/* Scrollbar Styling */
 .pixels-holder::-webkit-scrollbar {
   width: 10px;
 }
-
 .pixels-holder::-webkit-scrollbar-track {
   background: var(--light-gray);
   border-radius: 5px;
 }
-
 .pixels-holder::-webkit-scrollbar-thumb {
   background: var(--primary-color);
   border-radius: 5px;
   border: 2px solid var(--light-gray);
 }
-
 .pixels-holder::-webkit-scrollbar-thumb:hover {
   background: #45a049;
 }
 
-/* Container with advanced border & background */
+/* ---------------------------------------------
+   CANVAS CONTAINER
+   --------------------------------------------- */
 #canvasContainer {
-  position: relative;  
-  /* Removed padding to avoid hover offset. 
-     If you want spacing around the container, 
-     use margin or external wrappers instead. */
+  position: relative;
   margin: 20px 0;
-
-  /* Keep your fancy background & border styling: */
   background: linear-gradient(135deg, #3a3a3a 0%, #1f1f1f 100%);
   border: 8px solid #666;
   border-radius: 15px;
   box-shadow:
-    0 0 20px rgba(0, 0, 0, 0.6), 
+    0 0 20px rgba(0, 0, 0, 0.6),
     inset 0 0 10px rgba(255, 255, 255, 0.1),
     inset 0 0 3px rgba(255, 255, 255, 0.3);
-
-  /* Overflow hidden so the hoverCanvas won't spill outside. 
-     Also we have overflow-y for scroll if the canvas is tall. */
   overflow: hidden;
   overflow-y: scroll;
   height: 70vh;
 }
 
-/* Main Canvas
-   - We let the JS set canvas.width & canvas.height 
-   - Removed "width: 100%" to avoid stretching */
 #pixelCanvas {
   position: absolute;
   top: 0;
   left: 0;
   display: block;
   cursor: pointer;
-  /* No 'width: 100%;' => prevents scaling mismatch */
 }
 
-/* Hover Canvas 
-   - Absolutely positioned on top of the main canvas 
-   - Same top/left => perfect alignment. */
 #hoverCanvas {
   position: absolute;
   top: 0;
   left: 0;
   pointer-events: none;
-  cursor: default; /* or omit */
+  cursor: default;
   display: block;
 }
 
-/* Zoom level styling */
+/* ---------------------------------------------
+   ZOOM LEVEL
+   --------------------------------------------- */
 #zoom-level {
   border-radius: 0;
   border: none;
@@ -145,19 +137,22 @@ header {
   background-color: transparent;
 }
 
+/* ---------------------------------------------
+   MODALS + BOOTSTRAP TWEAKS
+   --------------------------------------------- */
 .modal {
   z-index: 1055;
 }
 .modal-backdrop {
   z-index: 1050;
 }
-
-/* Modal tweak */
 .modal-dialog {
   max-width: 70vw;
 }
 
-/* Sidebar color */
+/* ---------------------------------------------
+   SIDEBAR
+   --------------------------------------------- */
 .sidebar-inner {
   height: 100%;
   background: #d0dfd7;
@@ -167,7 +162,9 @@ header {
   border: none;
 }
 
-/* Bootstrap tooltip modifications */
+/* ---------------------------------------------
+   TOOLTIP
+   --------------------------------------------- */
 .tooltip {
   background-color: #333;
   color: #fff;
@@ -175,18 +172,18 @@ header {
   font-weight: 400;
   border-radius: 5px;
 }
-
 .tooltip-arrow {
   border-top-color: #333 !important;
 }
-
 .tooltip-inner {
   background-color: var(--primary-color);
   color: white;
   font-weight: bold;
 }
 
-/* Preloader styling (optional) */
+/* ---------------------------------------------
+   PRELOADER
+   --------------------------------------------- */
 #preloader {
   position: fixed;
   top: 0;
@@ -205,7 +202,6 @@ header {
   display: flex;
   gap: 10px;
 }
-
 .preloader-shape {
   width: 20px;
   height: 20px;
@@ -213,7 +209,6 @@ header {
   background: #ffffff;
   animation: bounce 1.2s infinite ease-in-out;
 }
-
 .preloader-shape:nth-child(1) {
   animation-delay: -0.4s;
 }
@@ -233,7 +228,9 @@ header {
   }
 }
 
-/* Charity progress bar styling */
+/* ---------------------------------------------
+   CHARITY BAR
+   --------------------------------------------- */
 .charity-target-bar {
   width: 100%;
   max-width: 100%;
@@ -243,11 +240,9 @@ header {
   margin: 20px auto;
   border: 2px solid #767676;
 }
-
 .charity-target-bar strong {
   font-size: 20px;
 }
-
 .progress {
   background: linear-gradient(to right, #59836e, var(--primary-color));
   color: #fff;
@@ -263,7 +258,9 @@ header {
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
-/* Tooltip for hover info */
+/* ---------------------------------------------
+   PIXEL TOOLTIP
+   --------------------------------------------- */
 #pixelTooltip {
   position: absolute;
   background: rgba(0, 0, 0, 0.8);
@@ -281,7 +278,9 @@ header {
   transform: translateY(0);
 }
 
-/* Contact Section Custom Styles */
+/* ---------------------------------------------
+   CONTACT SECTION
+   --------------------------------------------- */
 #contact {
   background: #ffffff;
 }
@@ -302,7 +301,9 @@ header {
   text-decoration: underline;
 }
 
-/* Buttons */
+/* ---------------------------------------------
+   BUTTONS
+   --------------------------------------------- */
 .bg-primary {
   background: var(--primary-color) !important;
 }
@@ -316,7 +317,9 @@ header {
   transform: scale(1.02);
 }
 
-/* Footer */
+/* ---------------------------------------------
+   FOOTER
+   --------------------------------------------- */
 .site-footer {
   background: var(--dark-bg);
 }
@@ -324,7 +327,9 @@ header {
   background: var(--rights-bg);
 }
 
-/* Responsive / Media Queries */
+/* ---------------------------------------------
+   RESPONSIVE / MEDIA QUERIES
+   --------------------------------------------- */
 @media (max-width: 1199px) {
   .charity-target-bar strong {
     font-size: 16px;
