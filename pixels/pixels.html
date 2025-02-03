@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <!-- Responsiveness & SEO -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Join our charity fundraiser and help us reach our goal of $10,000!" />
+  <meta name="keywords" content="charity, fundraising, donations" />
+
+  <!-- Open Graph (optional) -->
+  <meta property="og:title" content="Charity Fundraiser v8 - Advanced" />
+  <meta property="og:description" content="Help us raise funds for a good cause." />
+  <!-- <meta property="og:image" content="https://example.com/img/social-preview.jpg" /> -->
+
+  <title>Charity Fundraiser v8 - Advanced</title>
+  <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@160..700&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Bootstrap Icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+  />
+
+  <!-- Bootstrap CSS (minified for production) -->
+  <link href="css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- Custom Styles (Updated name if needed, otherwise keep 'styles.css') -->
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <!-- Header & Navigation -->
+  <header class="gamer-header">
+    <!-- Starry Background -->
+    <div class="header-background">
+      <!-- Star elements with improved variety -->
+      <div class="header-star" style="left: 10%; animation-delay: 0s;"></div>
+      <div class="header-star" style="left: 40%; animation-delay: 2s;"></div>
+      <div class="header-star" style="left: 70%; animation-delay: 1s;"></div>
+      <div class="header-star" style="left: 80%; animation-delay: 3s;"></div>
+      <div class="header-star" style="left: 20%; animation-delay: 4s;"></div>
+      <div class="header-star" style="left: 60%; animation-delay: 1.5s;"></div>
+    </div>
+
+    <div class="header-overlay"></div>
+
+    <nav class="navbar navbar-expand-lg gamer-navbar">
+      <div class="container-fluid">
+        <!-- Logo with alt text -->
+        <a class="navbar-brand" href="#">
+          <img
+            src="img/pixel.jpg"
+            alt="Charity Fundraiser Logo"
+            style="height: 40px; width: auto; border: 2px solid #fff; border-radius: 50%;"
+            loading="lazy"
+          />
+        </a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-2">
+            <!-- Leaderboard Modal Trigger -->
+            <li class="nav-item">
+              <button
+                class="btn btn-sm btn-outline-light"
+                data-bs-toggle="modal"
+                data-bs-target="#leaderboardModal"
+              >
+                Leaderboard
+              </button>
+            </li>
+            <!-- Challenges Modal Trigger -->
+            <li class="nav-item">
+              <button
+                class="btn btn-sm btn-outline-light"
+                data-bs-toggle="modal"
+                data-bs-target="#challengesModal"
+              >
+                Challenges
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="navbar-underline"></div>
+    </nav>
+  </header>
+
+  <!-- Main Container for Charity Progress & Canvas -->
+  <div class="container mt-4">
+    <!-- Optional dark overlay behind everything -->
+    <div class="dark-overlay"></div>
+
+    <!-- Charity Target Bar Section -->
+    <div class="row charity-target-bar dark-gamified mb-4 align-items-center info-section">
+      <div class="col-sm-8 progress-container">
+        <div class="progress neon-progress" style="height: 20px;">
+          <div
+            id="charityProgressBar"
+            class="progress-bar neon-progress-bar"
+            role="progressbar"
+            style="width: 0%;"
+          >
+            <strong id="charityProgressLabel" class="progress-label">$0</strong>
+          </div>
+        </div>
+        <p id="pixelStats" class="pixel-stats">
+          0 / 1000 pixels answered (0%)
+        </p>
+      </div>
+      <div class="col-sm-2 text-center charity-target target-display">
+        <strong>Target: $10,000</strong>
+      </div>
+      <div class="col-sm-2 text-end zoom-select-container">
+        <label for="zoom-level" class="visually-hidden">Zoom</label>
+        <select
+          id="zoom-level"
+          class="form-select zoom-level-select"
+          aria-label="Select Canvas Size"
+        >
+          <option selected>Canvas Size</option>
+          <option value="1">1x1</option>
+          <option value="5">5x5</option>
+          <option value="10">10x10</option>
+          <option value="20">20x20</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Pixels Holder Section -->
+    <div class="pixels-holder">
+      <div id="progressLabel" class="text-center fw-bold mb-3" style="display: none;">
+        Loading Pixels: <span id="progressPercentage">0%</span>
+      </div>
+
+      <div class="row">
+        <!-- Main Canvas (11 columns) -->
+        <div class="col-sm-11">
+          <div id="canvasContainer">
+            <canvas id="pixelCanvas"></canvas>
+            <canvas id="hoverCanvas"></canvas>
+          </div>
+          <!-- Row of existing toggle & new theme options -->
+          <div class="row mb-4 align-items-center toggle-buttons">
+            <div class="col-sm-3 text-center my-1">
+              <select id="clusterSizeDropdown" class="form-select w-100">
+                <option selected>Select Cluster Size</option>
+                <option value="100">100</option>
+                <option value="400">400</option>
+                <option value="900">900</option>
+                <option value="1600">1600</option>
+              </select>
+            </div>
+            <div class="col-sm-3 text-center my-1">
+              <button id="renderMonaLisa" class="btn btn-primary w-100">
+                Render Mona Lisa
+              </button>
+            </div>
+            <!-- Theme Selection -->
+            <div class="col-sm-3 text-center my-1">
+              <select id="themeDropdown" class="form-select w-100">
+                <option selected>Apply Theme</option>
+                <option value="random">Random Colors</option>
+                <option value="rainbow">Rainbow</option>
+                <option value="grayscale">Grayscale</option>
+                <option value="solid">Solid Color</option>
+              </select>
+            </div>
+            <div class="col-sm-3 text-center my-1">
+              <button id="uploadThemeImage" class="btn btn-secondary w-100">
+                Upload Theme Image
+              </button>
+              <input
+                id="themeImageInput"
+                type="file"
+                accept="image/*"
+                hidden
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Side Tools (1 column) -->
+        <div class="col-sm-1">
+          <div class="row mb-4 align-items-center text-center">
+            <!-- Color Picker -->
+            <div class="col-12 mb-3">
+              <label for="colorPicker" class="form-label visually-hidden">Color Picker</label>
+              <input
+                type="color"
+                id="colorPicker"
+                class="form-control form-control-sm"
+                value="#ff00ff"
+              />
+            </div>
+
+            <!-- Show/Hide Chosen Pixels -->
+            <div class="col-12 mb-1">
+              <button
+                id="showChosenPixels"
+                class="btn btn-primary p-2"
+                style="width: 30px; height: 30px;"
+              >
+                <i class="bi bi-flag" title="Show Chosen Pixels"></i>
+              </button>
+            </div>
+
+            <!-- Recolor Pixels -->
+            <div class="col-12 mb-1">
+              <button
+                id="recolorPixels"
+                class="btn btn-secondary p-2"
+                style="width: 30px; height: 30px;"
+              >
+                <i class="bi bi-palette" title="Recolor Pixels"></i>
+              </button>
+            </div>
+
+            <!-- Reset Grid -->
+            <div class="col-12 mb-1">
+              <button
+                id="resetGrid"
+                class="btn btn-info p-2"
+                style="width: 30px; height: 30px;"
+              >
+                <i class="bi bi-arrow-repeat" title="Reset Grid"></i>
+              </button>
+            </div>
+
+            <!-- Toggle Music -->
+            <div class="col-12 mb-2">
+              <button
+                id="toggleMusic"
+                class="btn btn-danger p-2"
+                style="width: 30px; height: 30px;"
+              >
+                <i class="bi bi-music-note" title="Play Music"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Info Section (About + Contact) -->
+  <section class="info-section">
+    <div class="container">
+      <div class="row">
+        <!-- About Card -->
+        <div class="col-sm-6">
+          <div class="card mt-4">
+            <div class="card-header bg-primary text-white">
+              About the Charity Fundraiser
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Support Our Cause</h5>
+              <p class="card-text">
+                Welcome to our Charity Fundraiser! Our mission is to raise funds 
+                to support [Your Charity's Purpose]. By interacting with the pixel 
+                grid, you contribute directly to our goal of reaching $10,000.
+              </p>
+              <p class="card-text">
+                <strong>How It Works:</strong>
+              </p>
+              <ul>
+                <li>Select the pixel size for your viewing experience.</li>
+                <li>Apply a theme or recolor the pixels to see the full canvas.</li>
+                <li>Click on a pixel to make a donation and answer a question.</li>
+                <li>View your contributions by clicking "Show Chosen Pixels".</li>
+              </ul>
+              <p class="card-text">
+                Your participation helps us make a significant impact. Thank you for
+                your support!
+              </p>
+              <a href="#" class="btn btn-primary">Learn More</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Section -->
+        <div class="col-sm-6">
+          <div id="contact" class="py-5">
+            <div class="container">
+              <div class="row">
+                <div class="col-lg-12 mb-4">
+                  <h4>Get in Touch</h4>
+                  <p class="text-muted">
+                    Reach out to us for any questions, partnership opportunities, 
+                    or donations.
+                  </p>
+                  <form id="contactForm">
+                    <div class="mb-3">
+                      <label for="name" class="visually-hidden">Name</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="name"
+                        placeholder="Enter your name"
+                        required
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label for="email" class="visually-hidden">Email</label>
+                      <input
+                        type="email"
+                        class="form-control"
+                        id="email"
+                        placeholder="Enter your email"
+                        required
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label for="message" class="visually-hidden">Message</label>
+                      <textarea
+                        class="form-control"
+                        id="message"
+                        rows="5"
+                        placeholder="Enter your message"
+                        required
+                      ></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                  </form>
+                </div>
+                <!-- Additional content if needed -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pixel Modal (Ownership + Donation) -->
+  <div
+    class="modal fade"
+    id="pixelModal"
+    tabindex="-1"
+    aria-labelledby="pixelModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="pixelModalLabel">Pixel Ownership</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <!-- Example Video or additional content -->
+            <div class="col-lg-8 col-md-7 col-sm-12 mb-3">
+              <iframe
+                loading="lazy"
+                width="100%"
+                height="300px"
+                src="https://www.youtube.com/embed/B605goq7vL8"
+                title="How To Start A Software Development Agency in 2025"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <!-- Pixel Form & Donation Section -->
+            <div class="col-lg-4 col-md-5 col-sm-12">
+              <div class="sidebar-inner p-3">
+                <strong id="pixel-id-clicked"></strong>
+                <p class="mt-3">Do you like Coke?</p>
+
+                <form id="pixelForm">
+                  <!-- Radio Answers -->
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="answer"
+                      value="Yes"
+                      id="optionYes"
+                    />
+                    <label class="form-check-label" for="optionYes">
+                      A. Yes
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="answer"
+                      value="No"
+                      id="optionNo"
+                    />
+                    <label class="form-check-label" for="optionNo">
+                      B. No
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="answer"
+                      value="Don’t know"
+                      id="optionDontKnow"
+                    />
+                    <label class="form-check-label" for="optionDontKnow">
+                      C. Don’t know
+                    </label>
+                  </div>
+
+                  <button
+                    type="button"
+                    id="submitAnswer"
+                    class="btn btn-primary mt-3 w-100"
+                  >
+                    Submit Answer
+                  </button>
+
+                  <hr />
+
+                  <!-- Donation Fields (Optional) -->
+                  <div class="mb-3">
+                    <label for="donorName" class="form-label">Your Name</label>
+                    <input
+                      type="text"
+                      id="donorName"
+                      class="form-control"
+                      placeholder="e.g. John Doe"
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="donationAmount" class="form-label">
+                      Donation Amount
+                    </label>
+                    <input
+                      type="number"
+                      id="donationAmount"
+                      class="form-control"
+                      placeholder="e.g. 10"
+                      min="1"
+                    />
+                  </div>
+
+                  <button
+                    type="button"
+                    id="donateNow"
+                    class="btn btn-success w-100"
+                  >
+                    Donate
+                  </button>
+                </form>
+              </div>
+            </div>
+            <!-- /#pixelForm -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Leaderboard Modal -->
+  <div
+    class="modal fade"
+    id="leaderboardModal"
+    tabindex="-1"
+    aria-labelledby="leaderboardModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="leaderboardModalLabel">Leaderboard</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <table class="table table-striped" id="leaderboardTable">
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>Name</th>
+                <th>Amount Donated</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Dynamically filled by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Challenges Modal -->
+  <div
+    class="modal fade"
+    id="challengesModal"
+    tabindex="-1"
+    aria-labelledby="challengesModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="challengesModalLabel">Challenges & Achievements</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div id="userPointsSection" class="mb-3">
+            <strong>Your Points:</strong> <span id="userPoints">0</span>
+          </div>
+          <div class="challenges-list">
+            <ul>
+              <li>
+                <strong>Pick 5 Pixels</strong>
+                <span id="challenge-1-status" class="badge bg-secondary ms-2">0/5</span>
+              </li>
+              <li>
+                <strong>Donate a Total of $50</strong>
+                <span id="challenge-2-status" class="badge bg-secondary ms-2">$0/50</span>
+              </li>
+              <li>
+                <strong>Create a 3x3 red cluster</strong>
+                <span id="challenge-3-status" class="badge bg-secondary ms-2">Not yet</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer text-white pt-5 mt-5">
+    <div class="container">
+      <div class="row text-center text-md-start">
+        <!-- About Column -->
+        <div class="col-md-4 mb-3">
+          <h5 class="text-uppercase">About Us</h5>
+          <p>
+            Learn more about our charity and how your support makes an impact.
+            Join us in making a difference!
+          </p>
+          <a href="#" class="btn btn-primary btn-sm">Learn More</a>
+        </div>
+        <!-- Address Column -->
+        <div class="col-md-4 mb-3">
+          <h5 class="text-uppercase">Contact</h5>
+          <p>123 Charity Street<br />City Name, Country</p>
+          <p>
+            <strong>Email:</strong>
+            <a href="mailto:info@charityexample.com" class="text-white">info@charityexample.com</a><br />
+            <strong>Phone:</strong>
+            <a href="tel:+1234567890" class="text-white">+1 (234) 567-890</a>
+          </p>
+          <p><strong>Hours:</strong><br />Mon - Fri, 9:00 AM to 5:00 PM</p>
+        </div>
+        <!-- Social Media Column -->
+        <div class="col-md-4 mb-3">
+          <h5 class="text-uppercase">Follow Us</h5>
+          <div>
+            <a href="#" class="text-white me-3">
+              <i class="bi bi-facebook" style="font-size: 1.5rem;"></i>
+            </a>
+            <a href="#" class="text-white me-3">
+              <i class="bi bi-twitter" style="font-size: 1.5rem;"></i>
+            </a>
+            <a href="#" class="text-white me-3">
+              <i class="bi bi-instagram" style="font-size: 1.5rem;"></i>
+            </a>
+            <a href="#" class="text-white">
+              <i class="bi bi-linkedin" style="font-size: 1.5rem;"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mt-4 rights-section py-3">
+      <p class="mb-0">&copy; 2025 Charity Fundraiser. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Tooltip for hover info -->
+  <div id="pixelTooltip"></div>
+
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
+
+  <!-- Your updated custom scripts -->
+  <!-- NOTE: 'custom.js' should contain the updated PixelGridApp code -->
+  <script src="js/custom.js" defer></script>
+  <script src="js/monaLisa.js" defer></script>
+  <script src="js/header.js" defer></script>
+  <script src="js/progress.js" defer></script>
+
+  <script defer>
+    // Example progress function if your progress.js or other logic calls this
+    function updateProgress(currentAmount, targetAmount, currentPixels, totalPixels) {
+      const progressBar = document.getElementById('charityProgressBar');
+      const progressLabel = document.getElementById('charityProgressLabel');
+      const pixelStats = document.getElementById('pixelStats');
+
+      const percentage = Math.min((currentAmount / targetAmount) * 100, 100).toFixed(2);
+      progressBar.style.width = `${percentage}%`;
+      progressLabel.textContent = `$${currentAmount.toLocaleString()}`;
+
+      const pixelPercentage = Math.min((currentPixels / totalPixels) * 100, 100).toFixed(2);
+      pixelStats.textContent = `${currentPixels} / ${totalPixels} pixels answered (${pixelPercentage}%)`;
+    }
+
+    // Initialize your PixelGridApp or other logic after DOM loaded
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log("[pixels.html] DOMContentLoaded -> PixelGridApp.init()");
+      PixelGridApp.init();
+    });
+  </script>
+</body>
+</html>

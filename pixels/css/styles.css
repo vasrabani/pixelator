@@ -1,4 +1,13 @@
-/* CSS Variables for easy maintenance */
+/* ---------------------------------------------
+   1) GLOBAL RESET / BOX-SIZING
+--------------------------------------------- */
+* {
+  box-sizing: border-box;
+}
+
+/* ---------------------------------------------
+   2) CSS Variables for easy maintenance
+--------------------------------------------- */
 :root {
   --primary-color: #4b886a;
   --light-gray: #e0e0e0;
@@ -6,29 +15,61 @@
   --rights-bg: #141414;
   --hover-opacity: 0.9;
   --font-family: 'Readex Pro', Tahoma, Geneva, Verdana, sans-serif;
+  /* New variable for scrollbar hover color */
+  --scrollbar-hover-color: #45a049;
 }
 
-/* General Styling */
+/* ---------------------------------------------
+   3) GLOBAL STYLES
+--------------------------------------------- */
 body {
-  font-family: var(--font-family);
+  background: #1b1b1b; /* Base gray color */
+  background-image:
+    repeating-linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.05),
+      rgba(255, 255, 255, 0.05) 10px,
+      transparent 10px,
+      transparent 20px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      rgba(255, 255, 255, 0.05),
+      rgba(255, 255, 255, 0.05) 10px,
+      transparent 10px,
+      transparent 20px
+    );
+  background-size: 80px 80px; /* Size of the pixelated effect */
+  animation: pixelBackgroundAnimation 8s infinite alternate;
 }
+
+/* Optional subtle pulsing animation for the background */
+@keyframes pixelBackgroundAnimation {
+  0% {
+    background-size: 80px 80px;
+    background-position: 0 0, 0 0;
+  }
+  50% {
+    background-size: 90px 90px;
+    background-position: 10px 10px, -10px -10px;
+  }
+  100% {
+    background-size: 80px 80px;
+    background-position: 0 0, 0 0;
+  }
+}
+
 a {
   text-decoration: none;
 }
 
 /* ---------------------------------------------
-   HEADER + PIXEL BACKGROUND
-   --------------------------------------------- */
+   4) HEADER + PIXEL BACKGROUND
+--------------------------------------------- */
 header {
   position: relative;
-  /* Remove forced height or reduce it */
-  /* height: 1000px; <-- removed */
-  /* overflow: hidden; <-- removed */
-
-  /* Option 1: Let the content define height naturally */
-  /* or Option 2: Use min-height so it doesn't collapse too short */
   min-height: 100px;
-  z-index: 1; /* Ensure it's above the pixel background */
+  z-index: 1;
 }
 
 .header-pixel-background {
@@ -37,15 +78,15 @@ header {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: -1; /* Behind header content */
-  overflow: hidden; 
+  z-index: -1;
+  overflow: hidden;
 }
 
 .header-pixel {
   position: absolute;
   width: 10px;
   height: 10px;
-  background-color: rgba(51, 64, 58, 0.8);
+  background-color: rgba(34, 42, 38, 0.8);
   transform-origin: center;
   animation: pixel-float 5s infinite ease-in-out;
 }
@@ -59,23 +100,119 @@ header {
   }
 }
 
-/* ---------------------------------------------
-   NAVBAR
-   --------------------------------------------- */
-.navbar-dark {
-  background: var(--primary-color) !important;
+/* Advanced Gamer Header (first definition) */
+.gamer-header {
+  background: linear-gradient(135deg, #1e1e2f, #121212);
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.header-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+/* Star effects for the header background */
+.header-star {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  box-shadow:
+    0 0 8px rgba(255, 255, 255, 0.8),
+    0 0 20px rgba(255, 255, 255, 0.5);
+  animation: star-float 6s infinite ease-in-out, star-flicker 1.5s infinite ease-in-out;
+}
+
+/* Floating animation for stars */
+@keyframes star-float {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-10px) scale(1.1);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Flickering animation for stars */
+@keyframes star-flicker {
+  0%, 100% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Overlay for subtle gradient layering */
+.header-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.9));
+  z-index: 0;
+}
+
+/* Responsive fixes for smaller screens */
+@media (max-width: 767px) {
+  .navbar-underline {
+    height: 2px;
+  }
+  .header-star {
+    width: 4px;
+    height: 4px;
+  }
+}
+
+/* Extra tooltip scaling for <=767px screens */
+@media (max-width: 767px) {
+  #pixelTooltip {
+    font-size: 12px; /* Reduce tooltip font size */
+    padding: 6px; /* Adjust padding for smaller screens */
+  }
+  #canvasContainer {
+    height: 400px; /* Adjust height for smaller screens */
+  }
+}
+
+.gamer-navbar {
+  z-index: 1;
+}
+
+.navbar-underline {
+  height: 2px;
+  background: var(--primary-color);
+  width: 100%;
+  margin-top: -2px;
 }
 
 /* ---------------------------------------------
-   PIXELS HOLDER SCROLLBAR
-   --------------------------------------------- */
+   5) NAVBAR
+--------------------------------------------- */
+.navbar-dark {
+  background: var(--primary-color) !important; /* Keep !important if truly needed */
+}
+
+/* ---------------------------------------------
+   6) PIXELS HOLDER SCROLLBAR
+--------------------------------------------- */
 .pixels-holder {
   width: 100%;
   margin: 0;
   scrollbar-width: thin;
   scrollbar-color: var(--primary-color) var(--light-gray);
 }
-
 .pixels-holder::-webkit-scrollbar {
   width: 10px;
 }
@@ -89,12 +226,12 @@ header {
   border: 2px solid var(--light-gray);
 }
 .pixels-holder::-webkit-scrollbar-thumb:hover {
-  background: #45a049;
+  background: var(--scrollbar-hover-color);
 }
 
 /* ---------------------------------------------
-   CANVAS CONTAINER
-   --------------------------------------------- */
+   7) CANVAS CONTAINER
+--------------------------------------------- */
 #canvasContainer {
   position: relative;
   margin: 20px 0;
@@ -105,31 +242,44 @@ header {
     0 0 20px rgba(0, 0, 0, 0.6),
     inset 0 0 10px rgba(255, 255, 255, 0.1),
     inset 0 0 3px rgba(255, 255, 255, 0.3);
-  overflow: hidden;
-  overflow-y: scroll;
-  height: 70vh;
+
+  /* Remove or override these to prevent clipping the enlarged pixel: */
+  /* overflow: hidden; */
+  /* overflow-y: scroll; */
+  /* height: 70vh; */
+
+  /* Instead, let it expand: */
+  height: auto;
+  overflow: visible;
+  min-height: 600px; /* Or some fixed min-height you prefer */
 }
 
-#pixelCanvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: block;
-  cursor: pointer;
-}
 
+/* Both canvases must share full width/height */
+#pixelCanvas,
 #hoverCanvas {
   position: absolute;
   top: 0;
   left: 0;
-  pointer-events: none;
-  cursor: default;
   display: block;
+  width: 100%;
+  height: 100%;
+}
+
+#pixelCanvas {
+  z-index: 1; /* Pixel canvas behind hover canvas */
+  cursor: pointer;
+}
+
+#hoverCanvas {
+  z-index: 2; /* Ensure it is above #pixelCanvas */
+  pointer-events: none; /* Allows interaction with #pixelCanvas below */
+  cursor: default;
 }
 
 /* ---------------------------------------------
-   ZOOM LEVEL
-   --------------------------------------------- */
+   8) ZOOM LEVEL
+--------------------------------------------- */
 #zoom-level {
   border-radius: 0;
   border: none;
@@ -138,8 +288,8 @@ header {
 }
 
 /* ---------------------------------------------
-   MODALS + BOOTSTRAP TWEAKS
-   --------------------------------------------- */
+   9) MODALS + BOOTSTRAP TWEAKS
+--------------------------------------------- */
 .modal {
   z-index: 1055;
 }
@@ -150,9 +300,7 @@ header {
   max-width: 70vw;
 }
 
-/* ---------------------------------------------
-   SIDEBAR
-   --------------------------------------------- */
+/* Sidebar inside modal */
 .sidebar-inner {
   height: 100%;
   background: #d0dfd7;
@@ -163,74 +311,40 @@ header {
 }
 
 /* ---------------------------------------------
-   TOOLTIP
-   --------------------------------------------- */
-.tooltip {
-  background-color: #333;
+   10) TOOLTIP
+--------------------------------------------- */
+#pixelTooltip {
+  position: absolute;
+  background: rgba(34, 34, 34, 0.9); /* Slightly updated for clarity */
   color: #fff;
-  font-size: 20px;
-  font-weight: 400;
+  padding: 8px; /* Increased for better readability */
   border-radius: 5px;
-}
-.tooltip-arrow {
-  border-top-color: #333 !important;
-}
-.tooltip-inner {
-  background-color: var(--primary-color);
-  color: white;
-  font-weight: bold;
-}
-
-/* ---------------------------------------------
-   PRELOADER
-   --------------------------------------------- */
-#preloader {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: var(--primary-color);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  font-size: 13px; /* or 12px for smaller screens */
+  pointer-events: none;
+  display: none; /* Hidden by default */
   z-index: 9999;
-  overflow: hidden;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  transition: opacity 0.3s ease, transform 0.2s ease;
 }
 
-.modern-preloader {
-  display: flex;
-  gap: 10px;
-}
-.preloader-shape {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: #ffffff;
-  animation: bounce 1.2s infinite ease-in-out;
-}
-.preloader-shape:nth-child(1) {
-  animation-delay: -0.4s;
-}
-.preloader-shape:nth-child(2) {
-  animation-delay: -0.2s;
-}
-.preloader-shape:nth-child(3) {
-  animation-delay: 0s;
+#pixelTooltip.show {
+  display: block;
+  opacity: 1;
+  transform: translateY(-5px); /* Subtle lift on display */
 }
 
-@keyframes bounce {
-  0%, 80%, 100% {
-    transform: scale(0);
-  }
-  40% {
-    transform: scale(1);
-  }
+/* Optional effect for a hovered pixel in #pixelCanvas */
+#pixelCanvas:hover .hovered-pixel {
+  box-shadow:
+    0 0 15px rgba(255, 255, 0, 0.6),
+    0 0 30px rgba(255, 255, 0, 0.4);
+  transform: scale(1.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 /* ---------------------------------------------
-   CHARITY BAR
-   --------------------------------------------- */
+   11) CHARITY BAR + PROGRESS (20px Height)
+--------------------------------------------- */
 .charity-target-bar {
   width: 100%;
   max-width: 100%;
@@ -239,18 +353,23 @@ header {
   position: relative;
   margin: 20px auto;
   border: 2px solid #767676;
+  height: 20px;           /* Enforce 20px total height */
+  display: flex;
+  align-items: center;    /* Vertically center content */
 }
+
 .charity-target-bar strong {
   font-size: 20px;
 }
+
 .progress {
   background: linear-gradient(to right, #59836e, var(--primary-color));
   color: #fff;
   font-weight: bold;
   text-align: right;
-  height: 50px;
+  height: 30px;       /* Fallback height, overridden below if needed */
   padding: 0;
-  line-height: 50px;
+  line-height: 30px;
   border-radius: 0;
   position: relative;
   white-space: nowrap;
@@ -258,29 +377,19 @@ header {
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
-/* ---------------------------------------------
-   PIXEL TOOLTIP
-   --------------------------------------------- */
-#pixelTooltip {
-  position: absolute;
-  background: rgba(0, 0, 0, 0.8);
-  color: #fff;
-  padding: 5px;
-  border-radius: 3px;
-  font-size: 14px;
-  pointer-events: none;
-  display: none;
-  z-index: 9999;
-  transition: opacity 0.3s, transform 0.3s;
+.progress-bar {
+  background-color: #28a745;
+  transition: width 0.4s ease;
 }
-#pixelTooltip.show {
-  opacity: 1;
-  transform: translateY(0);
+
+#charityProgressLabel {
+  font-size: 0.75rem;  /* Scaled text for 20px container */
+  white-space: nowrap; /* Prevent text wrapping */
 }
 
 /* ---------------------------------------------
-   CONTACT SECTION
-   --------------------------------------------- */
+   12) CONTACT SECTION
+--------------------------------------------- */
 #contact {
   background: #ffffff;
 }
@@ -302,11 +411,12 @@ header {
 }
 
 /* ---------------------------------------------
-   BUTTONS
-   --------------------------------------------- */
+   13) BUTTONS
+--------------------------------------------- */
 .bg-primary {
   background: var(--primary-color) !important;
 }
+
 .btn-primary {
   background: var(--primary-color);
   border: 1px solid var(--primary-color);
@@ -317,9 +427,14 @@ header {
   transform: scale(1.02);
 }
 
+/* Animate button scale for showChosenPixels */
+#showChosenPixels.animate-scale {
+  transform: scale(1.3);
+}
+
 /* ---------------------------------------------
-   FOOTER
-   --------------------------------------------- */
+   14) FOOTER
+--------------------------------------------- */
 .site-footer {
   background: var(--dark-bg);
 }
@@ -328,8 +443,16 @@ header {
 }
 
 /* ---------------------------------------------
-   RESPONSIVE / MEDIA QUERIES
-   --------------------------------------------- */
+   15) LEADERBOARD TABLE
+--------------------------------------------- */
+#leaderboardTable th {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+/* ---------------------------------------------
+   16) RESPONSIVE / MEDIA QUERIES
+--------------------------------------------- */
 @media (max-width: 1199px) {
   .charity-target-bar strong {
     font-size: 16px;
@@ -360,15 +483,22 @@ header {
     margin: 10px 0;
   }
   #canvasContainer {
-    height: 400px;
+    position: relative;
+    background: linear-gradient(135deg, #3a3a3a, #1f1f1f);
+    border: 8px solid #666;
+    border-radius: 15px;
+    box-shadow:
+      0 0 20px rgba(0, 0, 0, 0.6),
+      inset 0 0 10px rgba(255, 255, 255, 0.1),
+      inset 0 0 3px rgba(255, 255, 255, 0.3);
+    overflow: hidden;
+    height: 70vh; /* Adjusted for dynamic resizing */
+    max-height: 800px; /* Prevents overflow on smaller screens */
   }
   .modal-dialog {
     max-width: 90vw;
   }
-  .toggle-buttons .col-sm-3,
-  .toggle-buttons .col-sm-3,
-  .toggle-buttons .col-sm-3 .btn-secondary,
-  .toggle-buttons .col-sm-3 .btn-primary {
+  .toggle-buttons .col-sm-3 {
     width: 100%;
     margin: 5px 0;
   }
@@ -379,6 +509,7 @@ header {
 }
 
 @media (max-width: 767px) {
+  /* Columns adjustments */
   .charity-target-bar .col-sm-8 {
     max-width: 75%;
     flex: 0 0 75%;
@@ -395,23 +526,27 @@ header {
     flex: 0 0 100%;
     width: 100% !important;
   }
+
+  /* Smaller font sizes on strong text */
   .charity-target-bar strong {
-    font-size: 13px;
+    font-size: 12px;
+    line-height: 16px;
   }
+
   #zoom-level {
     border: 2px solid #767676;
     margin: 10px 0;
   }
+
   .modal-dialog {
     max-width: 100vw;
   }
+
   #canvasContainer {
     height: 380px !important;
   }
-  .toggle-buttons .col-sm-3,
-  .toggle-buttons .col-sm-3,
-  .toggle-buttons .col-sm-3 .btn-secondary,
-  .toggle-buttons .col-sm-3 .btn-primary {
+
+  .toggle-buttons .col-sm-3 {
     width: 100%;
     margin: 3px 0;
   }
@@ -422,6 +557,7 @@ header {
 }
 
 @media (max-width: 570px) {
+  /* Only unique rules for <=570px */
   .toggle-buttons .col-sm-6 {
     text-align: center;
   }
@@ -431,19 +567,156 @@ header {
   #canvasContainer {
     height: 380px !important;
   }
-  .toggle-buttons .col-sm-3,
-  .toggle-buttons .col-sm-3,
-  .toggle-buttons .col-sm-3 .btn-secondary,
-  .toggle-buttons .col-sm-3 .btn-primary {
-    width: 100%;
-    margin: 3px 0;
+}
+
+/* ---------------------------------------------
+   17) ADVANCED FUTURISTIC OVERRIDES
+--------------------------------------------- */
+
+/* Overriding .gamer-header with a more futuristic style */
+.gamer-header {
+  background: linear-gradient(135deg, #1e1e2f, #101015);
+  color: #fff;
+  border-bottom: 2px solid #444;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle animated neon effect for the navbar underline */
+.navbar-underline {
+  height: 4px;
+  background: linear-gradient(90deg, #00ffe0, #00ffff, #00ffe0);
+  background-size: 200%;
+  animation: neonLineMove 3s linear infinite;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.8),
+              0 0 25px rgba(0, 255, 255, 0.4);
+}
+
+@keyframes neonLineMove {
+  0% {
+    background-position: 0% 50%;
   }
-  .toggle-buttons .col-sm-3 .btn-secondary,
-  .toggle-buttons .col-sm-3 .btn-primary {
-    padding: 12px;
+  100% {
+    background-position: 100% 50%;
   }
-  .charity-target-bar strong {
-    font-size: 12px;
-    line-height: 16px;
+}
+
+/* Make the .navbar-dark transparent over gradient */
+.navbar-dark {
+  background: transparent !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Subtle animated overlay behind the charity section */
+.dark-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+  background: radial-gradient(circle at 50% 50%, rgba(0, 255, 255, 0.05), transparent 60%);
+  animation: pulseOverlay 5s infinite alternate;
+}
+
+@keyframes pulseOverlay {
+  0% {
+    opacity: 0.2;
   }
+  100% {
+    opacity: 0.4;
+  }
+}
+
+/* Dark gamified section wrapper */
+.dark-gamified {
+  position: relative;
+  z-index: 1;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #1c1c1c;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+/* Remove default background/border from .charity-target-bar in dark mode */
+.dark-gamified .charity-target-bar {
+  background: none !important;
+  border: none !important;
+}
+
+/* The neon progress bar container overrides */
+.progress-container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.progress.neon-progress {
+  height: 100%;
+  background-color: #2a2a2a !important;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: inset 0 0 5px #000;
+}
+
+.progress-bar.neon-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #00ff99, #00c2ff);
+  transition: width 0.6s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 0.75rem;
+  color: #000;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+  box-shadow:
+    0 0 10px rgba(0, 255, 255, 0.6),
+    0 0 20px rgba(0, 255, 255, 0.4),
+    inset 0 0 10px rgba(0, 255, 255, 0.4);
+}
+
+/* Pixel stats in neon text */
+.pixel-stats {
+  font-size: 0.75rem;
+  margin-top: 5px;
+  color: #00ffe0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: bold;
+}
+
+/* Target display with neon glow */
+.target-display {
+  font-size: 0.9rem;
+  color: #fff;
+  white-space: nowrap;
+  text-shadow: 0 0 5px #00ffe0;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+/* Neon drop-down styling */
+.zoom-select-container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.zoom-level-select {
+  font-size: 0.75rem;
+  height: 20px;
+  padding: 2px;
+  background-color: #2a2a2a;
+  color: #fff;
+  border: 1px solid #00ffe0;
+  border-radius: 4px;
+  box-shadow: 0 0 8px rgba(0, 255, 255, 0.2);
+  transition: box-shadow 0.3s ease;
+}
+.zoom-level-select:focus {
+  box-shadow: 0 0 12px rgba(0, 255, 255, 0.5);
+  outline: none;
 }

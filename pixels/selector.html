@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Bubble Selector</title>
+
+  <!-- Minimal Bootstrap (if needed for basic styling/buttons) -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+  />
+  <!-- Your custom selector styling -->
+  <link rel="stylesheet" href="css/selector.css" />
+</head>
+<body style="background: #111; color: #fff;">
+  <div class="container text-center mt-5">
+    <h3>3D Bubble Selector</h3>
+    <!-- We'll display the selected pixel ID from the query param -->
+    <p>Pixel ID: <span id="selectedPixelID"></span></p>
+    <p>Select one or more bubbles below.</p>
+  </div>
+
+  <!-- Fullscreen (or large) container to hold the bubble canvas -->
+  <div id="bubbleCanvasContainer" class="bubble-container">
+    <canvas id="bubbleCanvas"></canvas>
+  </div>
+
+  <!-- "Done Selecting" returns the user to pixels.html or wherever you like -->
+  <div class="container text-center mt-3 mb-5">
+    <button id="returnToMain" class="btn btn-success">Done Selecting</button>
+  </div>
+
+<div id="bubbleTooltip" 
+     style="position: absolute; display: none; color: #fff; 
+            padding: 6px; background: rgba(0,0,0,0.8); border-radius: 5px;
+            pointer-events: none; z-index: 9999; font-size: 14px;">
+</div>
+  <!-- Minimal Bootstrap JS bundle -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+  ></script>
+
+  <!-- Your Bubble Selector logic -->
+  <script src="js/bubbleSelector.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1) Parse URL Parameters (pixelID & pixelColor)
+      const params = new URLSearchParams(window.location.search);
+      const pixelID = params.get('pixelID') || 'none';
+      const pixelColor = params.get('pixelColor') || '#ffffff'; // Default bubble color if none passed
+  
+      // 2) Display Pixel ID on the page
+      document.getElementById('selectedPixelID').textContent = pixelID;
+  
+      // NOTE: We no longer set the background to pixelColor here:
+      // We want the background to remain #111, so we skip:
+      //   document.body.style.backgroundColor = pixelColor;
+      //   document.getElementById('bubbleCanvasContainer').style.backgroundColor = pixelColor;
+      // So the background stays dark (#111).
+
+      // 3) Initialize Bubble Selector with the pixel's color (only affects bubbles, not background)
+      BubbleSelectorApp.init({
+        pixelColor: pixelColor
+      });
+  
+      // 4) "Done Selecting" => redirect back to pixels.html
+      document.getElementById('returnToMain').addEventListener('click', () => {
+        window.location.href = 'pixels.html';
+      });
+    });
+  </script>
+
+</body>
+</html>
